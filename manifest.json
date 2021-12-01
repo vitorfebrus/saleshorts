@@ -1,0 +1,29 @@
+{
+    "manifest_version": 2,
+    "name": "Saleshorts",
+    "background": {
+        "scripts": ["js/background.js"]
+    },
+    "description": "Extension for Salesforce Lightning keyboard shortcuts",
+    "version": "1.0",
+
+    "browser_action": {
+        "default_icon": "img/icon.png",
+        "default_popup": "popup.html"
+    },
+    "permissions": ["tabs", "<all_urls>", "storage"],
+    "commands": {
+        "openId": {
+            "suggested_key": {
+                "default": "Ctrl+Q"
+            },
+            "description": "Open Record by Id"
+        },
+        "openInsp": {
+            "suggested_key": {
+                "default": "Alt+Q"
+            },
+            "description": "Open Salesforce Inspector"
+        }
+    }
+}

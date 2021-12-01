@@ -1,0 +1,23 @@
+body {
+	width: 220px;
+	height: 140px;
+	background-image: linear-gradient(lightblue, white);
+	padding: 10px;
+}
+
+#maindiv {
+	text-align: center;
+}
+
+#maindiv div{
+	text-align: left;
+}
+
+#btn {
+	width: 100%;
+	margin-top: 10px;
+}
+
+#sfid {
+	font-family: monospace;
+}
