@@ -13,17 +13,32 @@
     },
     "permissions": ["tabs", "<all_urls>", "storage"],
     "commands": {
-        "openId": {
-            "suggested_key": {
-                "default": "Ctrl+Q"
-            },
-            "description": "Open Record by Id"
-        },
         "openInsp": {
             "suggested_key": {
                 "default": "Alt+Q"
             },
             "description": "Open Salesforce Inspector"
+        },
+        "openSetup": {
+            "suggested_key": {
+                "default": "Alt+W"
+            },
+            "description": "Open Salesforce Setup"
+        },
+        "openDevConsole": {
+            "suggested_key": {
+                "default": "Alt+A"
+            },
+            "description": "Open Salesforce Developer Console"
+        },
+        "duplicateTab": {
+            "suggested_key": {
+                "default": "Alt+D"
+            },
+            "description": "Duplicate the current tab"
+        },
+        "openDataExport": {
+            "description": "Open the sf inspector data export"
         }
     }
 }
