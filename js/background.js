@@ -78,7 +78,7 @@ function openSetup() {
 			let url = tabs[0].url
 			let host = cleanStr(url.match(urlHostRegex)[0])
 			console.log("url", url)
-			if (host.includes('sandbox')) {
+			if (url.includes('sandbox')) {
 				window.open('https://' + host + '.sandbox.lightning.force.com/lightning/setup/SetupOneHome/home');
 			} else {
 				window.open('https://' + host + '.lightning.force.com/lightning/setup/SetupOneHome/home');
