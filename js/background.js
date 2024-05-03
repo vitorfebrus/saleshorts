@@ -38,7 +38,6 @@ function openInsp() {
 		} catch (error) {
 			console.log(error);
 		}
-
 	})
 }
 
@@ -50,13 +49,11 @@ function duplicateTab() {
 			window.open(url)
 			chrome.tabs.update(tabs[0].id, {
 				active: true
-			})
-	
-		})
+			});
+		});
 	} catch (error) {
 		console.log(error);
 	}
-
 }
 
 function cleanStr(str) {
@@ -86,9 +83,7 @@ function openSetup() {
 		} catch (error) {
 			console.log(error);
 		}
-
 	})
-
 }
 
 function openDevConsole() {
@@ -108,8 +103,7 @@ function openDevConsole() {
 		} catch (error) {
 			console.log(error);
 		}
-
-	})
+	});
 }
 
 function openDataExport() {
@@ -125,6 +119,5 @@ function openDataExport() {
 		} catch (error) {
 			console.log(error);
 		}
-
-	})
+	});
 }
