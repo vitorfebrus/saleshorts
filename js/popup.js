@@ -16,6 +16,7 @@ sfid.onpaste = (ev) => {
 	sfid.value = '';
 }
 
+createAutocomplete();
 
 document.getElementById('btn').onclick = () => {
   	const sfid = document.getElementById('sfid').value
@@ -26,15 +27,22 @@ document.getElementById('btn').onclick = () => {
 
 function openId (sfid) {
 	chrome.tabs.query({ lastFocusedWindow: true, active: true }, tabs => {
-		console.log(tabs);
 		let url = tabs[0].url
+		url = splitUrl(url);
 
 		if (sfid.match(idRegex)) {
-			url = splitUrl(url);
+			
 			url = url + '/' + sfid
 			console.log(url);
 			window.open('https://' + url, '_blank')
-
+		} else {
+			var selected = document.getElementById("sfid").value;
+			var config = sfConfigs.find((config) => {return config.configName == selected});
+			
+			if(config) {
+				url = url + config.configURI;
+				window.open('https://' + url);
+			}
 		}
 	})
 }
@@ -45,4 +53,20 @@ function splitUrl (url) {
 	return url.split('/')[0]
 }
 
+function createAutocomplete() {
+	var datalist = document.getElementById('sf-configs');
+	for(var config of sfConfigs) {
+		var option = document.createElement('option');
+		option['value'] = config.configName;
+		option['data-uri'] = config.configURI;
+		datalist.appendChild(option);
+	}
+}
 
+function getConfigNamesAndURI(configs) {
+	var configList = [];
+	for(var config of configs) {
+		configList.push({configName: config.innerText, configURI : config.hash});
+	}
+	return configList;
+}
