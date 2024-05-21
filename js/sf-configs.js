@@ -1,7 +1,7 @@
 const sfConfigs = [
     {
         "configName": "Setup Home",
-        "configURI": "/lightning/setup/lightning/setupOneHome/home"
+        "configURI": "/lightning/setup/SetupOneHome/home"
     },
     {
         "configName": "Service Setup Assistant",
@@ -373,7 +373,7 @@ const sfConfigs = [
     },
     {
         "configName": "All Sites",
-        "configURI": "/lightning/setup/lightning/setupNetworks/home"
+        "configURI": "/lightning/setup/SetupNetworks/home"
     },
     {
         "configName": "Pages",
