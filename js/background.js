@@ -34,7 +34,7 @@ function openInsp() {
 	
 			url = createUrl(host, objc, sfid, url);
 			console.log(url);
-			window.open(url);	
+			openNewTab(url, false);
 		} catch (error) {
 			console.log(error);
 		}
@@ -46,7 +46,7 @@ function duplicateTab() {
 		chrome.tabs.query({ lastFocusedWindow: true, active: true }, tabs => {
 			console.log(tabs)
 			let url = tabs[0].url
-			window.open(url)
+			openNewTab(url)
 			chrome.tabs.update(tabs[0].id, {
 				active: true
 			});
@@ -78,11 +78,11 @@ function openSetup() {
 			let host = cleanStr(url.match(urlHostRegex)[0])
 			console.log("url", url)
 			if (url.includes('sandbox')) {
-				window.open('https://' + host + '.sandbox.lightning.force.com/lightning/setup/SetupOneHome/home');
+				openNewTab('https://' + host + '.sandbox.lightning.force.com/lightning/setup/SetupOneHome/home');
 			} else if(url.includes('develop')) {
-				window.open('https://' + host + '.develop.lightning.force.com/lightning/setup/SetupOneHome/home');
+				openNewTab('https://' + host + '.develop.lightning.force.com/lightning/setup/SetupOneHome/home');
 			} else {
-				window.open('https://' + host + '.lightning.force.com/lightning/setup/SetupOneHome/home');
+				openNewTab('https://' + host + '.lightning.force.com/lightning/setup/SetupOneHome/home');
 			}
 		} catch (error) {
 			console.log(error);
@@ -101,11 +101,11 @@ function openDevConsole() {
 			console.log(host);
 
 			if (url.includes('sandbox')) {
-				window.open('https://' + host + '.sandbox.my.salesforce.com/_ui/common/apex/debug/ApexCSIPage', '_blank', 'resizable=0')
+				openNewWindow('https://' + host + '.sandbox.my.salesforce.com/_ui/common/apex/debug/ApexCSIPage', '_blank', 'resizable=0')
 			} else if(url.includes('develop')) {
-				window.open('https://' + host + '.develop.my.salesforce.com/_ui/common/apex/debug/ApexCSIPage', '_blank', 'resizable=0')
+				openNewWindow('https://' + host + '.develop.my.salesforce.com/_ui/common/apex/debug/ApexCSIPage', '_blank', 'resizable=0')
 			} else {
-				window.open('https://' + host + '.my.salesforce.com/_ui/common/apex/debug/ApexCSIPage', '_blank', 'resizable=0')
+				openNewWindow('https://' + host + '.my.salesforce.com/_ui/common/apex/debug/ApexCSIPage', '_blank', 'resizable=0')
 			}
 		} catch (error) {
 			console.log(error);
@@ -129,9 +129,25 @@ function openDataExport() {
 			}
 			
 			console.log(url);
-			window.open(url);
+			openNewTab(url);
 		} catch (error) {
 			console.log(error);
 		}
+	});
+}
+
+function openNewWindow(url) {
+	chrome.windows.create({
+		state: "maximized",
+		focused: true,
+		url: url,
+		type: "popup"
+	});
+}
+
+function openNewTab(url) {
+	chrome.tabs.create({
+		active: true,
+		url: url,
 	});
 }

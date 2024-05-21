@@ -1,17 +1,29 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "Saleshorts",
     "background": {
-        "scripts": ["js/background.js"]
+        "service_worker": "js/background.js",
+        "type": "module"
     },
     "description": "Extension for Salesforce Lightning keyboard shortcuts",
     "version": "1.0",
-
-    "browser_action": {
+    "action": {
         "default_icon": "img/icon.png",
         "default_popup": "popup.html"
     },
-    "permissions": ["tabs", "<all_urls>", "storage"],
+    "permissions": [
+        "tabs",
+        "storage"
+    ],
+    "host_permissions": [
+        "*://*/*"
+    ],
+    "icons": {
+        "16": "img/icon.png",
+        "32": "img/icon.png",
+        "48": "img/icon.png",
+        "128": "img/icon.png"
+    },
     "commands": {
         "openInsp": {
             "suggested_key": {
