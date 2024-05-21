@@ -12,13 +12,16 @@
 
     <div class="form-group" id="maindiv">
         <div class="form-floating">
-            <input type="text" class="form-control" id="sfid">
-            <label for="sfid">Salesforce Id</label>
+            <input list="sf-configs" type="text" class="form-control" id="sfid">
+            <label for="sfid">Prompt</label>
         </div>
+        <datalist id="sf-configs">
+        </datalist>
         <div>
             <button type="submit" class="btn btn-primary" id="btn">Go</button>
         </div>
     </div>
+    <script src="js/sf-configs.js"></script>
     <script src="js/popup.js"></script>
 </body> 
 </html>
