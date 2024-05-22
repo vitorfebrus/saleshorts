@@ -32,13 +32,12 @@ function openInsp() {
 			let objc = cleanStr(url.match(urlObjcRegex)[0]);
 			let sfid = cleanStr(url.match(urlIdRegex)[0])
 	
-			url = createUrl(host, objc, sfid, url.includes('sandbox'));
+			url = createUrl(host, objc, sfid, url);
 			console.log(url);
-			window.open(url);	
+			openNewTab(url, false);
 		} catch (error) {
 			console.log(error);
 		}
-
 	})
 }
 
@@ -47,25 +46,25 @@ function duplicateTab() {
 		chrome.tabs.query({ lastFocusedWindow: true, active: true }, tabs => {
 			console.log(tabs)
 			let url = tabs[0].url
-			window.open(url)
+			openNewTab(url)
 			chrome.tabs.update(tabs[0].id, {
 				active: true
-			})
-	
-		})
+			});
+		});
 	} catch (error) {
 		console.log(error);
 	}
-
 }
 
 function cleanStr(str) {
 	return str.replaceAll('/r', '').replaceAll('/', '').replaceAll('.', '');
 }
 
-function createUrl(host, objc, sfid, isSandBox) {
-	if (isSandBox) {
+function createUrl(host, objc, sfid, url) {
+	if (url.includes('sandbox')) {
 		return baseUrl + inspPath + host + '.sandbox.my.salesforce.com&objectType=' + objc + '&recordId=' + sfid;
+	} else if (url.includes('develop')) {
+		return baseUrl + inspPath + host + '.develop.my.salesforce.com&objectType=' + objc + '&recordId=' + sfid;
 	} else {
 		return baseUrl + inspPath + host + '.my.salesforce.com&objectType=' + objc + '&recordId=' + sfid;
 	}
@@ -79,16 +78,16 @@ function openSetup() {
 			let host = cleanStr(url.match(urlHostRegex)[0])
 			console.log("url", url)
 			if (url.includes('sandbox')) {
-				window.open('https://' + host + '.sandbox.lightning.force.com/lightning/setup/SetupOneHome/home');
+				openNewTab('https://' + host + '.sandbox.lightning.force.com/lightning/setup/SetupOneHome/home');
+			} else if(url.includes('develop')) {
+				openNewTab('https://' + host + '.develop.lightning.force.com/lightning/setup/SetupOneHome/home');
 			} else {
-				window.open('https://' + host + '.lightning.force.com/lightning/setup/SetupOneHome/home');
-			}	
+				openNewTab('https://' + host + '.lightning.force.com/lightning/setup/SetupOneHome/home');
+			}
 		} catch (error) {
 			console.log(error);
 		}
-
 	})
-
 }
 
 function openDevConsole() {
@@ -99,17 +98,19 @@ function openDevConsole() {
 			console.log(tabs)
 			let url = tabs[0].url
 			let host = cleanStr(url.match(urlHostRegex)[0])
-			console.log(host)
-			window.open(
-				'https://' + host + '.my.salesforce.com/_ui/common/apex/debug/ApexCSIPage',
-				'_blank', 'resizable=0'
-	
-			)
+			console.log(host);
+
+			if (url.includes('sandbox')) {
+				openNewWindow('https://' + host + '.sandbox.my.salesforce.com/_ui/common/apex/debug/ApexCSIPage', '_blank', 'resizable=0')
+			} else if(url.includes('develop')) {
+				openNewWindow('https://' + host + '.develop.my.salesforce.com/_ui/common/apex/debug/ApexCSIPage', '_blank', 'resizable=0')
+			} else {
+				openNewWindow('https://' + host + '.my.salesforce.com/_ui/common/apex/debug/ApexCSIPage', '_blank', 'resizable=0')
+			}
 		} catch (error) {
 			console.log(error);
 		}
-
-	})
+	});
 }
 
 function openDataExport() {
@@ -119,12 +120,34 @@ function openDataExport() {
 			let url = tabs[0].url
 			let host = cleanStr(url.match(urlHostRegex)[0]);
 	
-			url = baseUrl + dataExportPath + host + '.my.salesforce.com';
+			if (url.includes('sandbox')) {
+				url = baseUrl + dataExportPath + host + '.sandbox.my.salesforce.com';
+			} else if(url.includes('develop')) {
+				url = baseUrl + dataExportPath + host + '.develop.my.salesforce.com';
+			} else {
+				url = baseUrl + dataExportPath + host + '.my.salesforce.com';
+			}
+			
 			console.log(url);
-			window.open(url);
+			openNewTab(url);
 		} catch (error) {
 			console.log(error);
 		}
+	});
+}
 
-	})
+function openNewWindow(url) {
+	chrome.windows.create({
+		state: "maximized",
+		focused: true,
+		url: url,
+		type: "popup"
+	});
+}
+
+function openNewTab(url) {
+	chrome.tabs.create({
+		active: true,
+		url: url,
+	});
 }
