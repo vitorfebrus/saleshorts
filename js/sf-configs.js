@@ -1495,5 +1495,13 @@ const sfConfigs = [
         "configName": "1 - Object Manager",
         "configURI": "/lightning/setup/ObjectManager/home"
     },
+    {
+        "configName": "Personal Information",
+        "configURI": "/lightning/settings/personal/PersonalInformation/home"
+    },
+    {
+        "configName": "Language & Time Zone",
+        "configURI": "/lightning/settings/personal/PersonalInformation/LanguageAndTimeZone/home"
+    },
     
 ]
