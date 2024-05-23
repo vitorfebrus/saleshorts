@@ -1501,7 +1501,7 @@ const sfConfigs = [
     },
     {
         "configName": "Language & Time Zone",
-        "configURI": "/lightning/settings/personal/PersonalInformation/LanguageAndTimeZone/home"
+        "configURI": "/lightning/settings/personal/LanguageAndTimeZone/home"
     },
     
 ]
